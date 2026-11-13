@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Documents | UniDraft AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}" class="logo">
+            <span class="logo-icon">U</span>
+            UniDraft <span>AI.</span>
+        </a>
+
+        <a href="{{ url_for('home') }}" class="nav-button">← Back to Home</a>
+    </nav>
+
+    <!-- Upload Section -->
+    <section class="upload-section standalone-upload">
+
+        <div class="upload-heading">
+            <span class="section-label">YOUR REPORT JOURNEY STARTS HERE</span>
+            <h2>Let's make your report<br><span>look exceptional.</span></h2>
+            <p>Upload your college reference and original report to get started.</p>
+        </div>
+
+        <!-- Upload Form -->
+        <form method="POST" enctype="multipart/form-data" id="uploadForm" novalidate>
+
+            <div class="upload-grid">
+
+                <!-- Reference Report -->
+                <label class="upload-box" for="reference">
+
+                    <div class="upload-icon">01</div>
+
+                    <h3>College Reference Report</h3>
+
+                    <p>
+                        Upload the sample report that contains your
+                        college's formatting rules.
+                    </p>
+
+                    <span class="file-action">＋ Choose reference file</span>
+
+                    <input type="file" id="reference" name="reference" accept=".docx,.pdf" required>
+
+                    <span class="file-name" id="referenceName">
+                        PDF or DOCX · Max 15 MB
+                    </span>
+
+                </label>
+
+                <!-- Student Report -->
+                <label class="upload-box" for="student">
+
+                    <div class="upload-icon">02</div>
+
+                    <h3>Student Original Report</h3>
+
+                    <p>
+                        Upload your report containing your original
+                        academic content.
+                    </p>
+
+                    <span class="file-action">＋ Choose your report</span>
+
+                    <input type="file" id="student" name="student" accept=".docx,.pdf" required>
+
+                    <span class="file-name" id="studentName">
+                        PDF or DOCX · Max 15 MB
+                    </span>
+
+                </label>
+
+            </div>
+
+            <button type="submit" class="submit-button" id="submitButton">
+                Analyze My Documents <span>↗</span>
+            </button>
+
+            <p class="upload-security">
+                ✦ Your uploaded files are processed temporarily.
+            </p>
+
+        </form>
+
+        <!-- Error Message -->
+        {% if error %}
+        <div class="error">
+            {{ error }}
+        </div>
+        {% endif %}
+
+
+        <!-- SUCCESS POPUP -->
+        {% if results and format_profile %}
+
+        <div class="success-modal" id="successModal">
+
+            <div class="success-popup">
+
+                <div class="success-icon">✓</div>
+
+                <h2>Analysis Completed Successfully!</h2>
+
+                <p>
+                    Your documents have been analyzed successfully.
+                    Your College Format Analysis and Document Extraction
+                    Results are available below.
+                </p>
+
+                <button type="button" id="viewResultsBtn">
+                    View Results ↓
+                </button>
+
+                <span class="close-popup" id="closePopup">
+                    Maybe Later
+                </span>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- COLLEGE FORMAT ANALYSIS -->
+        {% if format_profile %}
+
+        <section class="results format-results" id="resultsArea">
+
+            <h2>College Format Analysis</h2>
+
+            <p>
+                Reference document:
+                <strong>{{ format_profile.file_type }}</strong>
+            </p>
+
+            <p>{{ format_profile.analysis_note }}</p>
+
+            <!-- COLLEGE FORMAT BLUEPRINT -->
+            <div class="result-box blueprint-box">
+
+                <h3>College Format Blueprint</h3>
+
+                <p>
+                    This blueprint summarizes the formatting
+                    preferences detected in your college reference.
+                </p>
+
+                <hr>
+
+                <h4>1. Font Preferences</h4>
+
+                <p>
+                    Font Family:
+                    <strong>
+                        {{ format_profile.format_blueprint.font_family }}
+                    </strong>
+                </p>
+
+                <p>
+                    Body Font Size:
+                    <strong>
+                        {{ format_profile.format_blueprint.body_font_size }}
+                        {% if format_profile.format_blueprint.body_font_size != "Not detected" %}
+                        pt
+                        {% endif %}
+                    </strong>
+                </p>
+
+                <hr>
+
+                <h4>2. Text Formatting</h4>
+
+                <p>
+                    Preferred Alignment:
+                    <strong>
+                        {{ format_profile.format_blueprint.alignment }}
+                    </strong>
+                </p>
+
+                <p>
+                    Line Spacing:
+                    <strong>
+                        {{ format_profile.format_blueprint.line_spacing }}
+                    </strong>
+                </p>
+
+                <hr>
+
+                <h4>3. Heading Hierarchy</h4>
+
+                <p>
+                    Total Headings:
+                    <strong>
+                        {{ format_profile.format_blueprint.total_headings }}
+                    </strong>
+                </p>
+
+                <p><strong>Main Headings</strong></p>
+
+                {% if format_profile.format_blueprint.main_headings %}
+
+                {% for heading in format_profile.format_blueprint.main_headings %}
+                <p>• {{ heading.text }}</p>
+                {% endfor %}
+
+                {% else %}
+                <p>No main headings detected.</p>
+                {% endif %}
+
+                <p><strong>Subheadings</strong></p>
+
+                {% if format_profile.format_blueprint.subheadings %}
+
+                {% for heading in format_profile.format_blueprint.subheadings %}
+                <p>• {{ heading.text }}</p>
+                {% endfor %}
+
+                {% else %}
+                <p>No subheadings detected.</p>
+                {% endif %}
+
+                <hr>
+
+                <h4>4. Page Layout</h4>
+
+                {% set page = format_profile.format_blueprint.page_layout %}
+
+                {% if page %}
+
+                {% if format_profile.file_type == "DOCX" %}
+
+                <p>Page Width: {{ page.page_width }} inches</p>
+                <p>Page Height: {{ page.page_height }} inches</p>
+                <p>Top Margin: {{ page.top_margin }} inches</p>
+                <p>Bottom Margin: {{ page.bottom_margin }} inches</p>
+                <p>Left Margin: {{ page.left_margin }} inches</p>
+                <p>Right Margin: {{ page.right_margin }} inches</p>
+
+                {% else %}
+
+                <p>Page Width: {{ page.page_width }} inches</p>
+                <p>Page Height: {{ page.page_height }} inches</p>
+                <p>Top Margin: {{ page.top_margin }} inches</p>
+                <p>Bottom Margin: {{ page.bottom_margin }} inches</p>
+                <p>Left Margin: {{ page.left_margin }} inches</p>
+                <p>Right Margin: {{ page.right_margin }} inches</p>
+
+                {% endif %}
+
+                {% else %}
+
+                <p>No page layout information detected.</p>
+
+                {% endif %}
+
+                {% if format_profile.format_blueprint.written_guidelines %}
+                <hr>
+                <h4>5. Additional Written Requirements</h4>
+
+                {% if format_profile.format_blueprint.written_guidelines.page_count != "Not specified" %}
+                <p>Required Report Length: {{ format_profile.format_blueprint.written_guidelines.page_count }}</p>
+                {% endif %}
+
+                {% if format_profile.format_blueprint.written_guidelines.rules %}
+                <ul>
+                    {% for rule in format_profile.format_blueprint.written_guidelines.rules %}
+                    <li>{{ rule }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>No additional written requirements were detected.</p>
+                {% endif %}
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- Detected Font Names -->
+            <div class="result-box">
+
+                <h3>Detected Font Names</h3>
+
+                {% if format_profile.font_names %}
+
+                {% for font, count in format_profile.font_names %}
+                <p>{{ font }} — {{ count }} occurrences</p>
+                {% endfor %}
+
+                {% else %}
+                <p>No font information detected.</p>
+                {% endif %}
+
+            </div>
+
+
+            <!-- Detected Font Sizes -->
+            <div class="result-box">
+
+                <h3>Detected Font Sizes</h3>
+
+                {% if format_profile.font_sizes %}
+
+                {% for size, count in format_profile.font_sizes %}
+                <p>{{ size }} pt — {{ count }} occurrences</p>
+                {% endfor %}
+
+                {% else %}
+                <p>No font sizes detected.</p>
+                {% endif %}
+
+            </div>
+
+
+            <!-- Paragraph Alignment -->
+            <div class="result-box">
+
+                <h3>Paragraph Alignment</h3>
+
+                {% if format_profile.alignments %}
+
+                {% for alignment, count in format_profile.alignments %}
+                <p>{{ alignment }} — {{ count }} occurrences</p>
+                {% endfor %}
+
+                {% else %}
+                <p>No alignment information detected.</p>
+                {% endif %}
+
+            </div>
+
+
+            <!-- Heading Styles -->
+            <div class="result-box">
+
+                <h3>Heading Styles</h3>
+
+                {% if format_profile.heading_styles %}
+
+                {% for heading in format_profile.heading_styles %}
+                <p>{{ heading }}</p>
+                {% endfor %}
+
+                {% else %}
+                <p>No named heading styles detected.</p>
+                {% endif %}
+
+            </div>
+
+
+            <!-- AUTOMATICALLY DETECTED HEADINGS -->
+            <div class="result-box">
+
+                <h3>Automatically Detected Headings</h3>
+
+                <p>
+                    Total headings detected:
+                    <strong>{{ format_profile.heading_count }}</strong>
+                </p>
+
+                {% if format_profile.detected_headings %}
+
+                {% for heading in format_profile.detected_headings %}
+
+                <div class="detected-heading-item">
+
+                    <p>
+                        <strong>{{ loop.index }}. {{ heading.text }}</strong>
+                    </p>
+
+                    <p>
+                        Heading Level:
+                        {{ heading.level }}
+                    </p>
+
+                    <p>
+                        Detection Type:
+                        {{ heading.type }}
+                    </p>
+
+                    {% if heading.page is defined %}
+                    <p>
+                        Page Number: {{ heading.page }}
+                    </p>
+                    {% endif %}
+
+                </div>
+
+                <hr>
+
+                {% endfor %}
+
+                {% else %}
+
+                <p>No headings detected in this document.</p>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- Page Layout -->
+            <div class="result-box">
+
+                <h3>Page Layout</h3>
+
+                {% if format_profile.page_layout %}
+
+                {% for page in format_profile.page_layout %}
+
+                {% if format_profile.file_type == "DOCX" %}
+
+                <p>Page width: {{ page.page_width }} inches</p>
+                <p>Page height: {{ page.page_height }} inches</p>
+                <p>Top margin: {{ page.top_margin }} inches</p>
+                <p>Bottom margin: {{ page.bottom_margin }} inches</p>
+                <p>Left margin: {{ page.left_margin }} inches</p>
+                <p>Right margin: {{ page.right_margin }} inches</p>
+
+                {% else %}
+
+                <p>Page width: {{ page.width }} inches</p>
+                <p>Page height: {{ page.height }} inches</p>
+                <p>Estimated top margin: {{ page.top_margin }} inches</p>
+                <p>Estimated bottom margin: {{ page.bottom_margin }} inches</p>
+                <p>Estimated left margin: {{ page.left_margin }} inches</p>
+                <p>Estimated right margin: {{ page.right_margin }} inches</p>
+                <small>PDF margin values are estimates based on text positions.</small>
+
+                {% endif %}
+
+                {% endfor %}
+
+                {% else %}
+                <p>No page layout information detected.</p>
+                {% endif %}
+
+            </div>
+
+        </section>
+
+        {% endif %}
+
+
+        <!-- HEADING COMPARISON RESULTS -->
+        {% if comparison %}
+
+        <section class="results" id="headingComparison">
+
+            <h2>Heading Comparison Results</h2>
+
+            <p>
+                Comparison between your college reference report
+                and your original student report.
+            </p>
+
+            <!-- Summary -->
+            <div class="result-box">
+
+                <h3>Heading Analysis Summary</h3>
+
+                <p>
+                    Total Reference Headings:
+                    <strong>{{ comparison.total_reference_headings }}</strong>
+                </p>
+
+                <p>
+                    Total Student Headings:
+                    <strong>{{ comparison.total_student_headings }}</strong>
+                </p>
+
+                <p>
+                    Matched Headings:
+                    <strong>{{ comparison.matched|length }}</strong>
+                </p>
+
+                <p>
+                    Missing Headings:
+                    <strong>{{ comparison.missing|length }}</strong>
+                </p>
+
+                <p>
+                    Extra Headings:
+                    <strong>{{ comparison.extra|length }}</strong>
+                </p>
+
+            </div>
+
+            <!-- Matched Headings -->
+            <div class="result-box">
+
+                <h3>✓ Matched Headings</h3>
+
+                {% if comparison.matched %}
+
+                {% for heading in comparison.matched %}
+
+                <p>
+                    <strong>Reference:</strong>
+                    {{ heading.reference }}
+                </p>
+
+                <p>
+                    <strong>Student:</strong>
+                    {{ heading.student }}
+                </p>
+
+                <hr>
+
+                {% endfor %}
+
+                {% else %}
+
+                <p>No matching headings found.</p>
+
+                {% endif %}
+
+            </div>
+
+            <!-- Missing Headings -->
+            <div class="result-box">
+
+                <h3>✗ Missing Headings</h3>
+
+                {% if comparison.missing %}
+
+                {% for heading in comparison.missing %}
+
+                <p>• {{ heading }}</p>
+
+                {% endfor %}
+
+                {% else %}
+
+                <p>All reference headings are present.</p>
+
+                {% endif %}
+
+            </div>
+
+            <!-- Extra Headings -->
+            <div class="result-box">
+
+                <h3>Extra Headings</h3>
+
+                {% if comparison.extra %}
+
+                {% for heading in comparison.extra %}
+
+                <p>• {{ heading }}</p>
+
+                {% endfor %}
+
+                {% else %}
+
+                <p>No extra headings detected.</p>
+
+                {% endif %}
+
+            </div>
+
+            <!-- Heading Level Differences -->
+            <div class="result-box">
+
+                <h3>Heading Level Differences</h3>
+
+                {% if comparison.level_differences %}
+
+                {% for item in comparison.level_differences %}
+
+                <p>
+                    <strong>{{ item.heading }}</strong>
+                </p>
+
+                <p>
+                    Reference Level:
+                    {{ item.reference_level }}
+                </p>
+
+                <p>
+                    Student Level:
+                    {{ item.student_level }}
+                </p>
+
+                <hr>
+
+                {% endfor %}
+
+                {% else %}
+
+                <p>All matched headings have the correct heading levels.</p>
+
+                {% endif %}
+
+            </div>
+
+            <!-- Heading Order -->
+            <div class="result-box">
+
+                <h3>Heading Order Verification</h3>
+
+                {% if comparison.order_correct %}
+
+                <p>✓ Heading order is correct.</p>
+
+                {% else %}
+
+                <p>⚠ Heading order is different from the reference document.</p>
+
+                {% endif %}
+
+                <p>
+                    Status:
+                    <strong>{{ comparison.heading_order_status }}</strong>
+                </p>
+
+            </div>
+
+        </section>
+
+        {% endif %}
+
+
+
+        <!-- CERTIFICATE PAGE DETECTION -->
+        {% if certificate_detection %}
+        <section class="results" id="certificateDetection">
+            <h2>Certificate Page Detection</h2>
+            <div class="result-box">
+                <p><strong>Status:</strong>
+                    <span class="compliance-status {% if certificate_detection.found %}status-passed{% else %}status-needs-attention{% endif %}">
+                        {{ certificate_detection.status }}
+                    </span>
+                </p>
+                <p>{{ certificate_detection.message }}</p>
+                {% if certificate_detection.evidence %}
+                <p><strong>Evidence:</strong> {{ certificate_detection.evidence|join(", ") }}</p>
+                {% endif %}
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- LOGO, TABLE AND CHART DETECTION -->
+        {% if visual_detection %}
+        <section class="results" id="visualDetection">
+            <h2>Logo, Table and Chart Detection</h2>
+            <div class="result-box">
+                <p><strong>Pictures / embedded images:</strong> {{ visual_detection.picture_count }}</p>
+                <p><strong>Possible college logo:</strong>
+                    {% if visual_detection.logo_detected %}Image detected — visually confirm whether it is the college logo.{% else %}No image detected.{% endif %}
+                </p>
+                <p>{{ visual_detection.logo_note }}</p>
+                <p><strong>Tables detected:</strong> {{ visual_detection.table_count }}</p>
+                <p><strong>Charts detected:</strong> {{ visual_detection.chart_count }}</p>
+                <p>{{ visual_detection.chart_note }}</p>
+                <p><em>Note: chart detection is automatic but heuristic. Diagrams, logos and decorative vector artwork may also be counted as possible charts.</em></p>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- FORMATTING COMPLIANCE REPORT -->
+        {% if compliance_report %}
+        <section class="results" id="formatCompliance">
+            <h2>Formatting Compliance Report</h2>
+            <p>Comparison of your original report with the written college formatting requirements.</p>
+
+            <div class="compliance-summary">
+                <div class="compliance-score">
+                    <strong>{{ compliance_report.score }}%</strong>
+                    <span>Formatting compliance</span>
+                </div>
+                <div>
+                    <p><strong>{{ compliance_report.passed }}</strong> Passed</p>
+                    <p><strong>{{ compliance_report.failed }}</strong> Need attention</p>
+                    <p><strong>{{ compliance_report.not_verifiable }}</strong> Not verifiable</p>
+                    <p><strong>{{ compliance_report.not_applicable }}</strong> Not applicable</p>
+                </div>
+            </div>
+
+            {% for item in compliance_report.checks %}
+            <div class="result-box compliance-item">
+                <div class="compliance-heading">
+                    <h3>{{ item.name }}</h3>
+                    <span class="compliance-status status-{{ item.status|lower|replace(' ', '-') }}">
+                        {{ item.status }}
+                    </span>
+                </div>
+                <p><strong>Required:</strong> {{ item.expected }}</p>
+                <p><strong>Detected:</strong> {{ item.actual }}</p>
+                {% if item.note %}
+                <p class="compliance-note">{{ item.note }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+
+        <!-- AUTOMATIC FORMATTED REPORT DOWNLOADS -->
+        {% if downloads %}
+        <section class="results" id="formattedDownloads">
+            <h2>Your Formatted Report Is Ready</h2>
+            <p>Download the newly generated report. Keep your original file as a backup.</p>
+            <div class="download-list">
+                {% for item in downloads %}
+                <a class="download-link" href="{{ url_for('download_report', filename=item.filename) }}">
+                    {{ item.label }} <span>↓</span>
+                </a>
+                {% endfor %}
+            </div>
+            <p class="compliance-note">
+                PDF files are rebuilt from extractable text and may not retain the exact original
+                images, charts, page breaks or layout. DOCX output remains editable.
+            </p>
+        </section>
+        {% endif %}
+
+        {% if formatting_warning %}
+        <section class="results">
+            <h2>Automatic Formatting Notice</h2>
+            <p class="error">{{ formatting_warning }}</p>
+            <p>Your analysis results are still available. If the PDF is scanned or image-only,
+            it must be processed with OCR before it can be reformatted.</p>
+        </section>
+        {% endif %}
+
+        <!-- DOCUMENT EXTRACTION RESULTS -->
+        {% if results %}
+
+        <section class="results" id="extractionResults">
+
+            <h2>Document Extraction Results</h2>
+
+            {% for result in results %}
+
+            <div class="result-box">
+
+                <h3>{{ result.name }}</h3>
+
+                <p>File: {{ result.filename }}</p>
+
+                <p>
+                    Characters extracted:
+                    {{ result.characters }}
+                </p>
+
+                <pre>{{ result.text }}</pre>
+
+            </div>
+
+            {% endfor %}
+
+        </section>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <a href="{{ url_for('home') }}" class="logo footer-logo">
+            <span class="logo-icon">U</span>
+            UniDraft <span>AI.</span>
+        </a>
+
+        <p>Made to give your ideas a better presentation.</p>
+
+        <span>© 2026 UniDraft AI</span>
+
+    </footer>
+
+
+    <!-- JavaScript -->
+    <script>
+
+        // Display selected file names
+        function showFileName(inputId, displayId) {
+
+            const input = document.getElementById(inputId);
+            const display = document.getElementById(displayId);
+
+            input.addEventListener("change", function () {
+
+                if (this.files.length > 0) {
+
+                    display.textContent = "✓ " + this.files[0].name;
+                    display.classList.add("selected");
+
+                }
+
+            });
+
+        }
+
+        showFileName("reference", "referenceName");
+        showFileName("student", "studentName");
+
+
+        // Drag and drop functionality
+        document.querySelectorAll(".upload-box").forEach(box => {
+
+            const input = box.querySelector('input[type="file"]');
+
+            ["dragenter", "dragover"].forEach(eventName => {
+
+                box.addEventListener(eventName, event => {
+
+                    event.preventDefault();
+                    box.classList.add("drag-active");
+
+                });
+
+            });
+
+            ["dragleave", "drop"].forEach(eventName => {
+
+                box.addEventListener(eventName, event => {
+
+                    event.preventDefault();
+                    box.classList.remove("drag-active");
+
+                });
+
+            });
+
+            box.addEventListener("drop", event => {
+
+                if (event.dataTransfer.files.length) {
+
+                    input.files = event.dataTransfer.files;
+                    input.dispatchEvent(new Event("change"));
+
+                }
+
+            });
+
+        });
+
+
+        // Validate both documents before submitting
+        document.getElementById("uploadForm").addEventListener("submit", function (event) {
+
+            const reference = document.getElementById("reference");
+            const student = document.getElementById("student");
+            const button = document.getElementById("submitButton");
+
+            // Check whether both documents are selected
+            if (!reference.files.length || !student.files.length) {
+
+                event.preventDefault();
+
+                let message = "";
+
+                if (!reference.files.length && !student.files.length) {
+                    message = "Please upload both the College Reference Document and Student Original Report.";
+                }
+                else if (!reference.files.length) {
+                    message = "Please upload your College Reference Document before proceeding.";
+                }
+                else {
+                    message = "Please upload your Student Original Report before proceeding.";
+                }
+
+                alert("⚠ Upload Both Documents\n\n" + message);
+
+                return;
+            }
+
+            // Continue only when both files are selected
+            button.innerHTML = "Analyzing documents...";
+            button.disabled = true;
+
+        });
+
+
+        // Show success popup after successful analysis
+        const successModal = document.getElementById("successModal");
+
+        if (successModal) {
+
+            window.addEventListener("load", function () {
+                successModal.classList.add("show");
+            });
+
+        }
+
+
+        // View Results button
+        const viewResultsBtn = document.getElementById("viewResultsBtn");
+
+        if (viewResultsBtn) {
+
+            viewResultsBtn.addEventListener("click", function () {
+
+                successModal.classList.remove("show");
+
+                document.getElementById("resultsArea").scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            });
+
+        }
+
+
+        // Close popup
+        const closePopup = document.getElementById("closePopup");
+
+        if (closePopup) {
+
+            closePopup.addEventListener("click", function () {
+                successModal.classList.remove("show");
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>

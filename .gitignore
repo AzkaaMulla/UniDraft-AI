@@ -1,0 +1,29 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Flask
+instance/
+
+# Temporary files
+*.log
+.DS_Store
+Thumbs.db
+
+# Temporary uploads and generated reports
+uploads/
+temp/
+tmp/
+generated/
+output/

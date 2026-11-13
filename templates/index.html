@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniDraft AI | Your Report, Perfectly Formatted</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+
+        <a href="{{ url_for('home') }}" class="logo">
+            <span class="logo-icon">U</span>
+            UniDraft <span>AI.</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How it works</a>
+            <a href="#faq">FAQ</a>
+        </div>
+
+        <a href="{{ url_for('upload') }}" class="nav-button" target="_blank">
+            Get Started
+        </a>
+
+    </nav>
+
+
+    <main>
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    <span class="status-dot"></span>
+                    YOUR ACADEMIC WORK, REIMAGINED
+                </div>
+
+                <h1>
+                    Your ideas deserve
+                    <span class="highlight">better formatting.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Stop spending hours adjusting margins, fonts and headings.
+                    Let UniDraft AI transform your report into a professionally
+                    formatted document using your college's own reference.
+                </p>
+
+                <div class="hero-actions">
+
+                    <a href="{{ url_for('upload') }}" class="primary-button" target="_blank">
+                        Format My Report <span>↗</span>
+                    </a>
+
+                </div>
+
+                <div class="hero-note">
+                    <span>✦</span>
+                    Your content stays yours. We focus on formatting.
+                </div>
+
+            </div>
+
+
+            <!-- DOCUMENT PREVIEW -->
+            <div class="hero-visual">
+
+                <div class="floating-tag tag-top">
+                    ✦ Smart formatting
+                </div>
+
+                <div class="document-card">
+
+                    <div class="document-top">
+                        <span class="doc-symbol">U.</span>
+                        <span class="doc-label">DOCUMENT PREVIEW</span>
+                        <span class="doc-status">READY</span>
+                    </div>
+
+                    <div class="document-content">
+
+                        <div class="doc-small-line"></div>
+
+                        <h3>
+                            PROJECT<br>
+                            REPORT
+                        </h3>
+
+                        <div class="doc-accent-line"></div>
+
+                        <p>Academic Documentation</p>
+
+                        <div class="doc-lines">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div class="short-line"></div>
+                        </div>
+
+                        <div class="doc-bottom">
+                            <span>STUDENT PROJECT</span>
+                            <span>2026</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="floating-tag tag-bottom">
+                    <span class="check-circle">✓</span>
+                    Structure detected
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FEATURES SECTION -->
+        <section class="features-section" id="features">
+
+            <div class="section-heading">
+
+                <span class="section-label">WHY UNIDRAFT AI?</span>
+
+                <h2>
+                    Less formatting.<br>
+                    <span>More creating.</span>
+                </h2>
+
+                <p>
+                    Everything you need to turn an ordinary report
+                    into a polished academic document.
+                </p>
+
+            </div>
+
+
+            <div class="feature-grid">
+
+                <article class="feature-card">
+
+                    <div class="feature-icon coral">01</div>
+
+                    <h3>Understand your college format</h3>
+
+                    <p>
+                        Upload a sample report and let the system analyze
+                        its structure and formatting.
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card">
+
+                    <div class="feature-icon yellow">02</div>
+
+                    <h3>Preserve your original content</h3>
+
+                    <p>
+                        Keep your ideas and information intact while
+                        improving the document's presentation.
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card">
+
+                    <div class="feature-icon green">03</div>
+
+                    <h3>Generate polished reports</h3>
+
+                    <p>
+                        Prepare a neatly structured academic report
+                        ready for review and editing.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- HOW IT WORKS SECTION -->
+        <section class="steps-section" id="how-it-works">
+
+            <div class="section-heading">
+
+                <span class="section-label">A SIMPLE PROCESS</span>
+
+                <h2>
+                    Three steps.<br>
+                    <span>One better report.</span>
+                </h2>
+
+            </div>
+
+
+            <div class="steps-grid">
+
+                <div class="step">
+
+                    <span class="step-number">01</span>
+
+                    <h3>Upload two documents</h3>
+
+                    <p>
+                        Provide your college's reference report
+                        and your original report.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <span class="step-number">02</span>
+
+                    <h3>Analyze the format</h3>
+
+                    <p>
+                        UniDraft AI extracts document content
+                        and prepares it for formatting.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <span class="step-number">03</span>
+
+                    <h3>Get your formatted report</h3>
+
+                    <p>
+                        Generate a document following the
+                        detected college structure.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FAQ SECTION -->
+        <section class="faq-section" id="faq">
+
+            <div class="section-heading">
+
+                <span class="section-label">GOT QUESTIONS?</span>
+
+                <h2>
+                    Frequently asked
+                    <span>questions.</span>
+                </h2>
+
+            </div>
+
+
+            <div class="faq-list">
+
+                <details>
+                    <summary>What is UniDraft AI?</summary>
+
+                    <p>
+                        UniDraft AI is an academic document formatting
+                        system designed to help students format their
+                        reports using a college reference document.
+                    </p>
+                </details>
+
+
+                <details>
+                    <summary>Which file formats can I upload?</summary>
+
+                    <p>
+                        The current version supports PDF and DOCX files.
+                    </p>
+                </details>
+
+
+                <details>
+                    <summary>Will my original content be changed?</summary>
+
+                    <p>
+                        The goal is to preserve your original ideas
+                        and information while applying the required
+                        document formatting.
+                    </p>
+                </details>
+
+
+                <details>
+                    <summary>Does it work with scanned PDFs?</summary>
+
+                    <p>
+                        Scanned PDF support requires OCR functionality,
+                        which can be added in a later development stage.
+                    </p>
+                </details>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <a href="{{ url_for('home') }}" class="logo footer-logo">
+            <span class="logo-icon">U</span>
+            UniDraft <span>AI.</span>
+        </a>
+
+        <p>Made to give your ideas a better presentation.</p>
+
+        <span>© 2026 UniDraft AI</span>
+
+    </footer>
+
+</body>
+</html>
