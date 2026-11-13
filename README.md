@@ -359,7 +359,7 @@ The following features are planned to improve the application:
 
 ## 👩‍💻 13. Developer
 
-**Azkaa Mulla **
+**Azkaa Mulla**
 
 ---
 
