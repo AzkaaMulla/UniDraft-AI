@@ -1,222 +1,374 @@
-::: {align="center"}
-`<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=12,18,20&height=190&section=header&text=UniDraft%20AI&fontSize=58&fontColor=ffffff&animation=fadeIn&desc=Smart%20Academic%20Report%20Formatting&descAlignY=75&descSize=18" width="100%" alt="UniDraft AI banner"/>`{=html}
-✨ Turn your academic content into a neatly structured report.
-```{=html}
-<p>
-```
-`<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>`{=html}
-`<img src="https://img.shields.io/badge/Flask-222222?style=for-the-badge&logo=flask&logoColor=white" alt="Flask"/>`{=html}
-`<img src="https://img.shields.io/badge/DOCX-2B579A?style=for-the-badge&logo=microsoftword&logoColor=white" alt="DOCX"/>`{=html}
-`<img src="https://img.shields.io/badge/PDF-Basic%20Support-BD5757?style=for-the-badge&logo=adobeacrobatreader&logoColor=white" alt="PDF"/>`{=html}
-```{=html}
+# 🎓 UniDraft AI – Intelligent Academic Report Formatter
+
+<p align="center">
+
+**Transform your academic reports into professionally formatted documents with the power of automation.**
+
+An intelligent document analysis and formatting system that understands college formatting guidelines and helps students prepare reports according to institutional standards.
+
 </p>
-```
-Developed by Saad
-:::
+
+<p align="center">
+
+![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python)
+![Flask](https://img.shields.io/badge/Flask-Web%20Framework-black?logo=flask)
+![HTML5](https://img.shields.io/badge/HTML5-Frontend-orange?logo=html5)
+![CSS3](https://img.shields.io/badge/CSS3-Styling-blue?logo=css3)
+![JavaScript](https://img.shields.io/badge/JavaScript-Interactive-yellow?logo=javascript)
+![Status](https://img.shields.io/badge/Project-In%20Development-orange)
+
+</p>
+
 ---
-🌷 About the Project
-UniDraft AI is a Python-based web application designed to make
-academic report formatting easier and more organized.
-Students often spend a lot of time adjusting report headings, fonts,
-spacing, and document structure to match their college's prescribed
-format. UniDraft AI aims to simplify this process by analyzing a college
-reference document and using the extracted formatting information as a
-guide for the student's report.
-The application works with uploaded documents, extracts their content
-and formatting-related information, and presents the analysis through a
-web interface.
-> **Project vision:** Spend less time fixing document layouts and more
-> time improving the content of your report.
-💡 Why UniDraft AI?
+
+## ✨ 1. Overview
+
+**UniDraft AI** is a Python-based intelligent academic report analysis and formatting web application designed to simplify the process of preparing college project reports.
+
+Students often struggle to format their academic reports according to specific college guidelines. Manually checking font styles, font sizes, heading structures, spacing, and document layouts can be time-consuming.
+
+UniDraft AI aims to solve this problem through automated document analysis.
+
+The system analyzes a college reference document, identifies its formatting preferences, extracts the content and structure of a student's report, and uses the detected guidelines to support consistent report formatting.
+
+### 🎯 2. Problem Statement
+
+Traditional academic report formatting involves:
+
+- Manually checking college formatting guidelines.
+- Identifying the correct font family and font size.
+- Maintaining consistent heading styles.
+- Managing paragraph spacing and line spacing.
+- Arranging report sections according to the required structure.
+- Repeating formatting changes throughout the document.
+
+These tasks increase the time and effort required to prepare academic reports.
+
+### 💡 3. Proposed Solution
+
+UniDraft AI provides an automated approach by:
+
+1. Accepting a college reference document.
+2. Analyzing its formatting characteristics.
+3. Generating a College Format Blueprint.
+4. Accepting the student's report.
+5. Extracting its content and document structure.
+6. Comparing the report structure with the detected guidelines.
+7. Supporting consistent formatting based on the analyzed reference.
+
 ---
-Common challenge                    UniDraft AI approach
+
+## 🚀 4. Key Features
+
+| Feature | Description |
+|---|---|
+| 📄 Document Upload | Upload reference documents and student reports. |
+| 🔍 Format Analysis | Analyze college formatting preferences. |
+| 🔠 Font Detection | Identify font family and font size. |
+| 📐 Spacing Analysis | Detect line spacing and formatting properties. |
+| 📚 Heading Detection | Identify document headings and hierarchy. |
+| 📝 Content Extraction | Extract titles, sections, and report content. |
+| 📊 Format Blueprint | Generate a structured college formatting blueprint. |
+| 🔄 Heading Comparison | Compare report headings with reference structures. |
+| 📑 Document Processing | Process PDF and DOCX documents. |
+
 ---
-Manually checking college           Analyze a reference document
-formatting rules
-Finding report headings             Extract and compare heading
-information
-Understanding document structure    Organize extracted content into
-sections
-Repeating formatting checks         Create a reusable college format
-blueprint
-⚙️ How UniDraft AI Works
-The following flow illustrates the intended end-to-end workflow.
-``` mermaid
-%%{init: {"theme":"base","themeVariables":{"background":"#F7F4FF","primaryColor":"#E8E0FF","primaryTextColor":"#30264A","primaryBorderColor":"#A895D5","lineColor":"#9A87C8","secondaryColor":"#E1F0FF","tertiaryColor":"#FCE9F1","fontFamily":"Arial"}}}%%
+
+## 🔄 5. How UniDraft AI Works
+
+The application follows a two-document analysis workflow.
+
+**Step 1 – Upload College Reference**
+
+The user uploads the college's sample report or reference document.
+
+**Step 2 – Analyze Formatting Guidelines**
+
+The system analyzes the document to identify:
+- Font family and font size.
+- Line spacing.
+- Heading hierarchy.
+- Other available formatting properties.
+
+**Step 3 – Generate College Format Blueprint**
+
+The detected formatting preferences are organized into a structured blueprint.
+
+**Step 4 – Upload Student Report**
+
+The student uploads their own academic report.
+
+**Step 5 – Extract Report Content**
+
+The system extracts:
+- Report title.
+- Section headings.
+- Paragraph content.
+- Tables.
+- Headers and footers.
+- Page information.
+
+**Step 6 – Compare Document Structure**
+
+The extracted report structure is compared with the detected reference guidelines.
+
+**Step 7 – Formatting Workflow**
+
+The analyzed guidelines and extracted content are used to support the report formatting process.
+
+---
+
+## 🏗️ 6. System Architecture & Working Flow
+
+### Overall System Workflow
+
+```mermaid
 flowchart TD
-    A(["🌸 Start"]) --> B["Open UniDraft AI"]
-    B --> C["Upload college reference document"]
-    C --> D["Analyze reference formatting"]
-    D --> E["Generate College Format Blueprint"]
-    E --> F["Upload student report"]
-    F --> G["Extract report content and structure"]
-    G --> H["Compare headings and formatting"]
-    H --> I["Identify differences"]
-    I --> J["Display analysis / results"]
-    J --> K(["✨ End"])
-    classDef start fill:#E8DFFF,stroke:#967BCB,color:#30264A,stroke-width:2px
-    classDef process fill:#E4F1FF,stroke:#78A6D6,color:#203A56,stroke-width:1.5px
-    classDef analysis fill:#FCE8F0,stroke:#D58DAA,color:#563044,stroke-width:1.5px
-    classDef finish fill:#E2F4E9,stroke:#76B58C,color:#244A32,stroke-width:2px
-    class A,K start
-    class B,C,F process
-    class D,E,G,H,I,J analysis
+    A([Start]) --> B[Open UniDraft AI Website]
+    B --> C[Upload College Reference Document]
+    C --> D[Format Analyzer]
+    D --> E[Extract Font, Spacing and Headings]
+    E --> F[Generate College Format Blueprint]
+
+    F --> G[Upload Student Report]
+    G --> H[Content Extractor]
+    H --> I[Extract Title, Sections, Tables and Content]
+
+    I --> J[Heading and Structure Comparison]
+    F --> J
+
+    J --> K[Apply Detected Formatting Guidelines]
+    K --> L[Formatted Report / Processing Output]
+    L --> M([End])
+
+    style A fill:#d1fae5,stroke:#059669,color:#064e3b
+    style M fill:#d1fae5,stroke:#059669,color:#064e3b
+    style F fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    style J fill:#fef3c7,stroke:#d97706,color:#78350f
 ```
-🔍 Detailed workflow
-Reference upload: The user uploads a college-prescribed
-reference document.
-Reference analysis: The application analyzes available
-formatting details, such as font family, font size, line spacing and
-heading hierarchy.
-Blueprint generation: The extracted preferences are organized
-into a College Format Blueprint.
-Student report upload: The user uploads the report that needs to
-be checked.
-Content extraction: The application extracts the report title,
-headings, sections and other supported document information.
-Comparison: The extracted report structure is compared with the
-reference information.
-Results: The application displays the analysis so the user can
-identify possible formatting and structural differences.
-🧩 System Architecture
-``` mermaid
-%%{init: {"theme":"base","themeVariables":{"background":"#F5F8FF","primaryColor":"#E5EDFF","primaryTextColor":"#253451","primaryBorderColor":"#829BCB","lineColor":"#8B9FC5","secondaryColor":"#E8F6F2","tertiaryColor":"#FFF0E8","fontFamily":"Arial"}}}%%
+
+### Internal Processing Architecture
+
+```mermaid
 flowchart TB
-    U["👩‍🎓 User"] --> UI["🌐 Web Interface<br/>HTML Templates"]
-    UI --> APP["🐍 Flask Application<br/>app.py"]
-    APP --> FA["📐 Format Analyzer<br/>format_analyzer.py"]
-    APP --> CE["📄 Content Extractor<br/>content_extractor.py"]
-    FA --> BP["College Format Blueprint"]
-    CE --> DATA["Extracted Report Data"]
-    BP --> CMP["🔎 Comparison / Analysis"]
-    DATA --> CMP
-    CMP --> OUT["📊 Results displayed to user"]
-    classDef user fill:#FCE8F0,stroke:#D58DAA,color:#563044,stroke-width:2px
-    classDef ui fill:#E5EDFF,stroke:#829BCB,color:#253451
-    classDef backend fill:#E8F6F2,stroke:#79B5A1,color:#24483D
-    classDef result fill:#FFF0E8,stroke:#D6A17C,color:#573B27
-    class U user
-    class UI ui
-    class APP,FA,CE,BP,DATA,CMP backend
-    class OUT result
+    U[User] --> UI[Web Interface]
+    UI --> APP[Flask Application - app.py]
+
+    APP --> FA[format_analyzer.py]
+    APP --> CE[content_extractor.py]
+
+    FA --> DOCX[Reference DOCX Analysis]
+    CE --> PDF[PDF / DOCX Content Extraction]
+
+    DOCX --> BP[College Format Blueprint]
+    PDF --> DATA[Structured Report Data]
+
+    BP --> COMP[Comparison and Formatting]
+    DATA --> COMP
+
+    COMP --> OUT[Report Processing Output]
+
+    style UI fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    style APP fill:#ede9fe,stroke:#7c3aed,color:#4c1d95
+    style BP fill:#d1fae5,stroke:#059669,color:#064e3b
+    style OUT fill:#fef3c7,stroke:#d97706,color:#78350f
 ```
-🛠️ Technologies Used
-Technology / Library   Purpose
+
 ---
-Python                 Main programming language
-Flask                  Web application and request handling
-PyMuPDF (`fitz`)       PDF document reading and text extraction
-python-docx            Reading and processing DOCX documents
-HTML                   Web page structure
-CSS                    User interface styling
-JavaScript             Client-side interactions
-Werkzeug               Secure handling of uploaded filenames
-The table describes the technologies used in the current project setup;
-additional libraries may be added as development continues.
-📁 Project Structure
-``` text
+
+## 🛠️ 7. Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| Python | Core application development |
+| Flask | Backend web framework |
+| PyMuPDF (fitz) | PDF document processing |
+| python-docx | DOCX document processing |
+| HTML5 | Web page structure |
+| CSS3 | User interface styling |
+| JavaScript | Frontend interactions |
+| Werkzeug | Secure file handling utilities |
+
+---
+
+## 📂 8. Project Structure
+
+```text
 UniDraft-AI/
 │
 ├── app.py
+│
 ├── format_analyzer.py
+│
 ├── content_extractor.py
 │
 ├── templates/
 │   ├── index.html
 │   ├── upload.html
-│   └── ...
+│   └── result.html
 │
 ├── static/
 │   ├── css/
+│   │   └── style.css
+│   │
 │   ├── js/
+│   │   └── script.js
+│   │
 │   └── images/
 │
 ├── uploads/
 │
 ├── requirements.txt
+│
+├── .gitignore
+│
 └── README.md
 ```
-Your actual folder and template names may differ. Update this tree to
-match the files in your project.
-🚀 Getting Started
+
+---
+
+## ⚙️ 9. Installation & Setup
+
 Follow these steps to run UniDraft AI locally.
-1. Clone the repository
-``` bash
-git clone https://github.com/YOUR-USERNAME/UniDraft-AI.git
+
+### Prerequisites
+
+- Python 3.x
+- Visual Studio Code
+- Git
+- Web browser
+
+### Step 1: Clone the Repository
+
+```bash
+git clone https://github.com/AzkaaMulla/UniDraft-AI.git
 ```
-2. Open the project folder
-``` bash
+
+### Step 2: Navigate to the Project
+
+```bash
 cd UniDraft-AI
 ```
-3. Create a virtual environment (recommended)
-``` bash
+
+### Step 3: Create a Virtual Environment
+
+```bash
 python -m venv venv
 ```
-Activate it on Windows:
-``` bash
+
+### Step 4: Activate Virtual Environment
+
+**Windows:**
+
+```bash
 venv\Scripts\activate
 ```
-4. Install dependencies
-If your project has a `requirements.txt` file:
-``` bash
-pip install -r requirements.txt
+
+### Step 5: Install Dependencies
+
+```bash
+pip install flask pymupdf python-docx
 ```
-Otherwise, install the libraries used by the current application:
-``` bash
-pip install Flask PyMuPDF python-docx Werkzeug
-```
-5. Run the application
-``` bash
+
+### Step 6: Run the Application
+
+```bash
 python app.py
 ```
-Open the local URL shown in your terminal (commonly
-`http://127.0.0.1:5000/`).
-📌 Current Project Modules
+
+### Step 7: Open in Browser
+
+```text
+http://127.0.0.1:5000/
+```
+
 ---
-Module                              Responsibility
+
+## 🧪 10. Example Working Scenario
+
+Consider a student who needs to prepare a project report according to their college's formatting guidelines.
+
+**Input Documents**
+
+| Document | Purpose |
+|---|---|
+| College Reference.docx | Contains the college's formatting standards |
+| Student Report.pdf | Contains the student's academic report |
+
+**Example Analysis Output**
+
+```text
+========== COLLEGE FORMAT BLUEPRINT ==========
+
+Font Family       : Times New Roman
+Body Font Size    : 14 pt
+Line Spacing      : 1.5
+Heading Analysis  : Completed
+
+==============================================
+```
+
+**Example Extracted Report**
+
+```text
+========== EXTRACTED REPORT ==========
+
+Title:
+SMART CAMPUS ATTENDANCE SYSTEM
+
+Sections:
+1. INTRODUCTION
+2. PROBLEM STATEMENT
+3. OBJECTIVES
+4. SYSTEM DESIGN
+
+Content Extraction: Successful
+
+======================================
+```
+
+This demonstrates how the application processes the reference document and the student's report separately before using the analyzed information in its formatting workflow.
+
 ---
-Reference Format Analyzer           Reads the reference document and
-detects available formatting
-preferences
-College Format Blueprint            Organizes the detected preferences
-into a readable summary
-Content Extractor                   Extracts report content and
-document structure
-Heading Comparison                  Compares detected report headings
-with the reference structure
-Web Interface                       Allows users to upload documents
-and view results
-🌟 Key Highlights
-Reference-based formatting analysis.
-Support for PDF and DOCX document processing, depending on the
-implemented extraction path.
-Extraction of report titles, headings and section content.
-College Format Blueprint generation.
-Heading comparison and structured analysis.
-Browser-based interface powered by Flask.
-🔮 Future Enhancements
-Automatic formatting correction for uploaded reports.
-More flexible heading detection for different college templates.
-Improved handling of tables, images, headers and footers.
-Downloadable corrected reports in DOCX and PDF formats.
-Detailed formatting suggestions and validation reports.
-More advanced document comparison and accuracy checks.
-👩‍💻 Developer
-::: {align="center"}
-Saad
-Developer of UniDraft AI
-Building practical solutions with Python and web technologies.
-:::
-🤝 Contributions
-Suggestions, feedback and contributions are welcome. If you find an
-issue or have an idea to improve UniDraft AI, feel free to open an issue
-or submit a pull request.
-📄 License
-A license has not yet been specified for this project. Add a `LICENSE`
-file before distributing the project under an open-source license.
+
+## 🔮 11. Future Enhancements
+
+The following features are planned to improve the application:
+
+- AI-powered intelligent heading recognition.
+- Automatic detection of previously unseen headings.
+- Advanced document formatting.
+- Automatic table of contents generation.
+- Page numbering and margin adjustment.
+- Support for additional document formats.
+- Improved formatting validation.
+- Downloadable formatted reports.
+- More advanced AI-based document structure analysis.
+
 ---
-::: {align="center"}
-💜 UniDraft AI
-Smarter formatting. Better presentation. More time for ideas.
-`<sub>`{=html}Made with care by Saad ✨`</sub>`{=html}
-:::
+
+## 🎯 12. Project Objectives
+
+- Reduce manual academic report formatting efforts.
+- Improve consistency in academic documentation.
+- Automate college guideline analysis.
+- Simplify document structure extraction.
+- Provide students with an easier report preparation experience.
+
+---
+
+## 👩‍💻 13. Developer
+
+**UniDraft AI** is developed as an academic software development project with a focus on Python-based document processing, web application development, and intelligent automation.
+
+---
+
+<p align="center">
+
+### ✨ UniDraft AI
+
+**Write Better. Format Smarter. Submit with Confidence.**
+
+*Making academic report preparation simpler and smarter.*
+
+</p>
