@@ -359,7 +359,7 @@ The following features are planned to improve the application:
 
 ## 👩‍💻 13. Developer
 
-**UniDraft AI** is developed as an academic software development project with a focus on Python-based document processing, web application development, and intelligent automation.
+**Azkaa Mulla **
 
 ---
 
